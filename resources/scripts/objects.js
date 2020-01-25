@@ -30,9 +30,23 @@ const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
 
 const animFunctions = [];
 
+// getRandomObject: Get a random object.
+// In this case, the object is loaded into the "Scene" object from gltf.
 function getRandomObject() {
-    let newObj = cube.clone();
-    newObj.material = new THREE.MeshBasicMaterial().copy(cube.material);
+    //let newObj = cube.clone();
+    //newObj.material = new THREE.MeshBasicMaterial().copy(cube.material);
+    
+    let sourceObj = scene.getObjectByName('Scene').children[0];
+    sourceObj.material.transparent = true;
+    sourceObj.material.opacity = 0;
+    
+    let newObj = sourceObj.clone();
+    console.log(newObj);
+    newObj.scale.set(20, 20, 20);
+    newObj.rotation.x = Math.PI / 2;
+    
+    newObj.material = newObj.material.clone();
+    //newObj.material.transparent = true;
     
     return newObj;
 }

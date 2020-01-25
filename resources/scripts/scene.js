@@ -4,6 +4,7 @@ import {
 } from "./three.js-r112/examples/jsm/controls/OrbitControls.js";
 import {addObjects, count as objCount, animFunctions} from './objects.js';
 import {addPlane} from './utility.js';
+import {load} from './loader.js';
 export {
     SCENE, THREE, scene, clockDelta, increment
 };
@@ -20,7 +21,7 @@ const aspect = 2;
 const near = 0.1;
 const far = 50;
 const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-camera.position.set(0, 20, 0);
+camera.position.set(5, 0, 10);
 camera.lookAt(new THREE.Vector3(0, 0, 0));
 
 // orbit controls
@@ -29,8 +30,24 @@ let controls = new OrbitControls(camera, renderer.domElement);
 // scene setup
 const scene = new THREE.Scene();
 
-addPlane();
-addObjects();
+const buildScene = async() => {
+    const objPath = './resources/models/heart.glb';
+    
+    const loaded = await Promise.all([
+        (async() => {
+            await load(objPath);
+        })()
+    ]);
+
+    //addPlane();
+    addObjects();
+    addLights();
+    
+    animate();
+    onWindowResize();
+}
+
+buildScene();
 
 let clock = new THREE.Clock();
 clock.start();
@@ -38,7 +55,7 @@ let increment = 1;
 let clockDelta = 0;
 
 // animation function
-let animate = () => {
+function animate() {
     requestAnimationFrame(animate);
 
     clockDelta = clock.getDelta();
@@ -54,8 +71,7 @@ let animate = () => {
     renderer.render(scene, camera);
 }
 
-animate();
-onWindowResize();
+
 
 // listen for resize events.
 window.addEventListener('resize', onWindowResize, false);
@@ -66,4 +82,15 @@ function onWindowResize() {
     camera.aspect =  w / h;
     camera.updateProjectionMatrix();
     renderer.setSize(w, h);
+}
+
+
+
+
+// Add lights.
+function addLights() {
+    scene.background = new THREE.Color(0xff0000);
+    
+    let light = new THREE.PointLight();
+    scene.add(light);
 }
