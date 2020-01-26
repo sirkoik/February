@@ -1,4 +1,4 @@
-import {THREE, scene, clockDelta, increment} from './scene.js';
+import {THREE, scene, clock, clockDelta, increment} from './scene.js';
 import {randSign} from './utility.js';
 export {addObjects, size, count, animFunctions};
 
@@ -58,8 +58,6 @@ function getRandomObject() {
     
     let randColor = colors[Math.round(Math.random() * (colors.length - 1))];
     
-    console.log(colors, randColor);
-    
     newObj.material = new THREE.MeshStandardMaterial({color: randColor}).clone();
     newObj.material.transparent = true;
     
@@ -77,8 +75,10 @@ function addObject(id) {
     posArray.push([pos[0], pos[1], pos[2]]);
     obj.position.set(pos[0], pos[1], pos[2]);
     
-    // set initial rotation of the object.
+    // set initial rotation and position of the object.
     obj.rotation.z = Math.PI * Math.random();
+    
+    obj.userData.randOffset = Math.random() * 10;
     
     // name and opacity
     obj.name = 'ActiveObject'+id;
@@ -88,6 +88,10 @@ function addObject(id) {
     // animation function for the object.
     obj.userData.anim = function(objLocal) {
         let inc = increment * clockDelta;
+        
+        
+        objLocal.position.x += Math.sin(clock.elapsedTime + objLocal.userData.randOffset) / 100;
+        
         objLocal.position.y += inc;
         
         objLocal.rotation.z -= inc / 5;

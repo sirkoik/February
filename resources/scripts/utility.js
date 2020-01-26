@@ -1,6 +1,6 @@
 import {THREE, scene} from './scene.js';
 import {size} from './objects.js';
-export {randSign, addPlane};
+export {randSign, addPlane, addHelpers};
 
 
 // randSign: return -1 or +1 randomly.
@@ -18,4 +18,9 @@ function addPlane() {
     //plane.position.z = -size / 2;
     
     scene.add(plane);
+}
+
+function addHelpers() {
+    let axesHelper = new THREE.AxesHelper(10);
+    scene.add(axesHelper);
 }
