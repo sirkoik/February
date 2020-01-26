@@ -11,7 +11,9 @@ export {
 
 const SCENE = () => {};
 
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({
+    antialias: true
+});
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
@@ -26,7 +28,10 @@ camera.lookAt(new THREE.Vector3(0, 0, 0));
 
 // orbit controls
 let controls = new OrbitControls(camera, renderer.domElement);
+controls.autoRotate = false;
+controls.enableDamping = true;
 //scene.add(controls);
+
 // scene setup
 const scene = new THREE.Scene();
 
@@ -54,6 +59,8 @@ clock.start();
 let increment = 1;
 let clockDelta = 0;
 
+let middleLight = {};
+
 // animation function
 function animate() {
     requestAnimationFrame(animate);
@@ -61,6 +68,13 @@ function animate() {
     clockDelta = clock.getDelta();
     //cube.rotation.y += increment * clock.getDelta();
     
+    // animate light
+    //middleLight.intensity = Math.PI/4 + Math.cos(clock.elapsedTime);
+    
+    // update controls
+    controls.update();
+    
+    // run each object's custom animation function.
     for (let x = 0; x < objCount; x++) {
         //scene.getObjectByName('ActiveObject'+x).userData.anim(x);
         let objLocal = scene.getObjectByName('ActiveObject'+x);
@@ -89,8 +103,22 @@ function onWindowResize() {
 
 // Add lights.
 function addLights() {
-    scene.background = new THREE.Color(0xff0000);
+    scene.background = new THREE.Color(0xcc0000);
     
     let light = new THREE.PointLight();
+    light.name = 'centerLight';
     scene.add(light);
+    
+//    let light2 = new THREE.PointLight();
+//    light2.intensity = 0.5;
+//    light2.position.set(5, 5, 5);
+//    scene.add(light2);
+    
+    let hemi = new THREE.HemisphereLight(0xff0000, 0xaa0000, 0.5);
+    scene.add(hemi);
+    middleLight = scene.getObjectByName('centerLight')
+    
+//    let ambLight = new THREE.AmbientLight(0xffffff);
+//    ambLight.intensity = 0.2;
+//    scene.add(ambLight);
 }
