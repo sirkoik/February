@@ -5,7 +5,7 @@
     * Add some equirectangular HDRI envmaps
 * Set tone mapping / output encoding. This can be changed if other forms of tone mapping look better.<sup>1</sup>
 * Add a function to quickly add point lights. Disabled for now.
-* Add light faing in/out animation. Disabled for now.
+* Add light fading in/out animation. Disabled for now.
 * Add basic sine curve that objects follow vertically. Want to replace with THREE.Path which the whole object follows
 * Add fog (not sure how good this looks)
 * Add some helpers
@@ -21,6 +21,4 @@
 # Ideas
 * Add paths
 * Add Cupid's arrows?
- 
-# Currently ignored directories
-lite server and three.js r112
+* Valentine's Day candy hearts?
