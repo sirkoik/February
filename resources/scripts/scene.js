@@ -53,7 +53,7 @@ const buildScene = async() => {
     ]);
 
     //addPlane();
-    addHelpers();
+    //addHelpers();
     addFog();
     addObjects();
     addLights();
