@@ -1,5 +1,13 @@
 # February
 
+## v0.3
+* Changed perspective to head-on.
+* Hearts do not rotate. They only move left-right and up. This can be tuned in the future.
+* Added basic interface.
+* Added custom fonts.
+* Made fog less foggy.
+* Added a candy heart model to repository. This is not being used yet.
+
 ## v0.2
 * Add envmap for lighting. Envmap does not necessarily need to be visible. (includes setting the scene.environment to the envmap, so that the objects actually receive the lighting from the map)<sup>1</sup>
     * Add some equirectangular HDRI envmaps

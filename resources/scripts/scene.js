@@ -24,9 +24,9 @@ document.body.appendChild(renderer.domElement);
 const fov = 75;
 const aspect = 2;
 const near = 0.1;
-const far = 50;
+const far = 75;
 const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-camera.position.set(5, 0, 10);
+camera.position.set(0, 0, 10);
 camera.lookAt(new THREE.Vector3(0, 0, 0));
 
 // orbit controls

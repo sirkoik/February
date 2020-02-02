@@ -76,7 +76,7 @@ function addObject(id) {
     obj.position.set(pos[0], pos[1], pos[2]);
     
     // set initial rotation and position of the object.
-    obj.rotation.z = Math.PI * Math.random();
+    //obj.rotation.z = Math.PI * Math.random();
     
     obj.userData.randOffset = Math.random() * 10;
     
@@ -89,12 +89,18 @@ function addObject(id) {
     obj.userData.anim = function(objLocal) {
         let inc = increment * clockDelta;
         
+        let theta = clock.elapsedTime + objLocal.userData.randOffset;
         
-        objLocal.position.x += Math.sin(clock.elapsedTime + objLocal.userData.randOffset) / 100;
+        objLocal.position.x += Math.sin(theta) / 100;
         
         objLocal.position.y += inc;
         
-        objLocal.rotation.z -= inc / 5;
+        //objLocal.rotation.z -= inc / 5;
+        
+        //objLocal.rotation.y = Math.atan(Math.cos(theta)) / 5;
+        //objLocal.rotation.y = (1/100) * Math.cos(objLocal.position.y);
+        //objLocal.rotation.y = Math.atan(Math.cos(theta)) / 5;
+        objLocal.rotation.y = Math.sin(theta) / 100;
         
         // set position to a random new one after reaching max threshold.
         if (objLocal.position.y > maxThreshold) {
