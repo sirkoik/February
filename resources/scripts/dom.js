@@ -1,3 +1,5 @@
+import {TEXT_OBJ_NAME} from './scene.js';
+import {addCustomText} from './3dtext.js';
 export {domInit}
 
 // domInit: Initialize DOM functions.
@@ -7,6 +9,11 @@ function domInit() {
     for (let el of document.querySelectorAll('.menu-items a')) {
         el.addEventListener('click', toggleMenu, false);
     }
+    
+    document.querySelector('.menu-items-customtext').addEventListener('click', function(e) {
+        e.preventDefault();
+        addCustomText(TEXT_OBJ_NAME);
+    }, false)
     
     document.querySelector('.menu-items-about').addEventListener('click', toggleOverlay, false);
     

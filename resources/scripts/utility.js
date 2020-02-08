@@ -1,6 +1,6 @@
 import {THREE, scene} from './scene.js';
 import {size} from './objects.js';
-export {randSign, addPlane, addHelpers};
+export {randSign, addPlane, addHelpers, getQueryVar};
 
 
 // randSign: return -1 or +1 randomly.
@@ -23,4 +23,10 @@ function addPlane() {
 function addHelpers() {
     let axesHelper = new THREE.AxesHelper(10);
     scene.add(axesHelper);
+}
+
+// getQueryVar: get a variable from the query string.
+function getQueryVar(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
 }

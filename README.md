@@ -1,5 +1,8 @@
 # February
 
+## v0.4
+* Added basic customizable text.
+
 ## v0.3
 * Changed perspective to head-on.
 * Hearts do not rotate. They only move left-right and up. This can be tuned in the future.

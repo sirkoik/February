@@ -5,12 +5,26 @@ import {
 import {addObjects, count as objCount, animFunctions} from './objects.js';
 import {addPlane, addHelpers} from './utility.js';
 import {load, loadEnvMap} from './loader.js';
+import {loadFont, addText} from './3dtext.js';
+import {getQueryVar} from './utility.js';
 export {
-    SCENE, THREE, scene, renderer, clock, clockDelta, increment
+    SCENE, THREE, scene, renderer, clock, clockDelta, increment, fontPath,
+    TEXT_OBJ_NAME
 };
+
 
 const SCENE = () => {};
 
+// object and path constants
+const TEXT_OBJ_NAME = 'vdayText';
+//const fontPath = './resources/scripts/three.js-r112/examples/fonts/helvetiker_regular.typeface.json';
+const fontPath = './resources/fonts/bright-beauty/Bright beauty_Regular.json';
+const objPath = './resources/models/heart.glb';
+//const envMapPath = './resources/textures/envmaps/autumn_meadow_1k.hdr';
+const envMapPath = './resources/textures/envmaps/studio_small_02_1k.hdr';
+
+
+// renderer
 const renderer = new THREE.WebGLRenderer({
     antialias: true
 });
@@ -39,9 +53,7 @@ controls.enableDamping = true;
 const scene = new THREE.Scene();
 
 const buildScene = async() => {
-    const objPath = './resources/models/heart.glb';
-    //const envMapPath = './resources/textures/envmaps/autumn_meadow_1k.hdr';
-    const envMapPath = './resources/textures/envmaps/studio_small_02_1k.hdr';
+    const fontText = getQueryVar('text') || 'Happy\nValentine\'s\nDay!';
     
     const loaded = await Promise.all([
         (async() => {
@@ -49,6 +61,9 @@ const buildScene = async() => {
         })(),
         (async() => {
             await loadEnvMap(envMapPath);
+        })(),
+        (async() => {
+            await loadFont(fontPath, fontText);
         })()
     ]);
 
@@ -57,6 +72,8 @@ const buildScene = async() => {
     addFog();
     addObjects();
     addLights();
+    addText(TEXT_OBJ_NAME);
+    
     
     animate();
     onWindowResize();
