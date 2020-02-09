@@ -109,7 +109,13 @@ h1 {
 }
 
 
-
+/* Text entry */
+.text-entry {
+    width: 100%;
+    font-family: BrightBeauty;
+    font-size: 5vh;
+    height: 20vh;
+}
 
 
 /* CSS for loader */

@@ -1,4 +1,4 @@
-import {THREE, scene, fontPath} from './scene.js';
+import {THREE, scene, fontPath, fontText} from './scene.js';
 export {loadFont, addText, addCustomText};
 
 let loader = new THREE.FontLoader();
@@ -10,7 +10,7 @@ function loadFont(path, text) {
         loader.load(path, (font) => {
             textGeometry = new THREE.TextGeometry(text, {
                 font: font,
-                size: 0.5,
+                size: 0.8,
                 height: 0.1
             });
             
@@ -34,7 +34,10 @@ function addText(name, objToRemove) {
     
     let geometry = textGeometry;
 
-    let material = new THREE.MeshStandardMaterial({color: 0xffffff});
+    let material = new THREE.MeshStandardMaterial({
+        emissive: new THREE.Color(0xffffff),
+        emissiveIntensity: 10
+    });
     let mesh = new THREE.Mesh(geometry, material);
     mesh.name = name;
     
@@ -45,14 +48,20 @@ function addText(name, objToRemove) {
 }
 
 // addCustomText: Adds custom text (deletes old text and replaces it)
+// since this is now multi-line, it encodes the string as base64.
 async function addCustomText(objToRemove) {
-    let text = prompt('Enter custom text');
-    if (!text) return false;
+//    let text = prompt('Enter custom text');
+//    if (!text) return false;
+    let text = document.getElementById('text-custom-entry').value;
+    if (!text || text == '') return false;
+    
+    // BUG for some reason this won't set
+    //fontText = text;
     
     await loadFont(fontPath, text);
     
     addText(objToRemove, objToRemove);
     
-    let url = window.location.href.split('?')[0] + '?text=' + text
+    let url = window.location.href.split('?')[0] + '?text=' + btoa(text) + '&base64=true';
     history.pushState({'page_id': 1}, text, url);
 }

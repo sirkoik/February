@@ -8,7 +8,7 @@ import {load, loadEnvMap} from './loader.js';
 import {loadFont, addText} from './3dtext.js';
 import {getQueryVar} from './utility.js';
 export {
-    SCENE, THREE, scene, renderer, clock, clockDelta, increment, fontPath,
+    SCENE, THREE, scene, renderer, clock, clockDelta, increment, fontPath, fontText,
     TEXT_OBJ_NAME
 };
 
@@ -23,6 +23,8 @@ const objPath = './resources/models/heart.glb';
 //const envMapPath = './resources/textures/envmaps/autumn_meadow_1k.hdr';
 const envMapPath = './resources/textures/envmaps/studio_small_02_1k.hdr';
 
+// text
+let fontText = 'Happy\nValentine\'s\nDay!';
 
 // renderer
 const renderer = new THREE.WebGLRenderer({
@@ -53,7 +55,14 @@ controls.enableDamping = true;
 const scene = new THREE.Scene();
 
 const buildScene = async() => {
-    const fontText = getQueryVar('text') || 'Happy\nValentine\'s\nDay!';
+    
+    // try to get font text based on query variable. base64 encoding is recommended for multi-line text.
+    try {
+        fontText = getQueryVar('base64') == 'true'? atob(getQueryVar('text')) : getQueryVar('text');
+    } catch(e) {
+        fontText = getQueryVar('text');
+    }
+    document.getElementById('text-custom-entry').value = fontText;
     
     const loaded = await Promise.all([
         (async() => {

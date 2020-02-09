@@ -1,5 +1,11 @@
 # February
 
+## v0.4.1
+* Multiline customizable text
+* Base64 encoding in the query string as an option to preserve formatting such as line breaks. Base64 is automatically used with the custom text entry interface.
+* Text is a bit larger (does not dynamically scale yet).
+* Text has an emissive shader.
+
 ## v0.4
 * Added basic customizable text.
 
@@ -28,6 +34,10 @@
 * Basic lighting - probably could use more lights to make it look more even.
 * Fix animation stopping after tab loses focus.
 * Panning with damping
+
+# Todo
+* Implement progress bar
+* Make text scale with window size
  
 # Ideas
 * Add paths

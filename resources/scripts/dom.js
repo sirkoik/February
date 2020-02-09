@@ -10,11 +10,12 @@ function domInit() {
         el.addEventListener('click', toggleMenu, false);
     }
     
-    document.querySelector('.menu-items-customtext').addEventListener('click', function(e) {
+    document.querySelector('#btn-text-update').addEventListener('click', function(e) {
         e.preventDefault();
         addCustomText(TEXT_OBJ_NAME);
     }, false)
     
+    document.querySelector('.menu-items-customtext').addEventListener('click', toggleOverlay, false);
     document.querySelector('.menu-items-about').addEventListener('click', toggleOverlay, false);
     
     for (let el of document.querySelectorAll('.button-close')) {

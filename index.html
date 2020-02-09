@@ -17,26 +17,37 @@
 
         <div class="menu-items hidden">
             <a href="/" class="button">Home</a>
-            <a href="#" class="button menu-items-customtext">Custom text</a>
+            <a href="#" class="button menu-items-customtext" targetid="overlay-customtext">Custom text</a>
             <a href="#" class="button menu-items-about" targetid="overlay-about">About</a>
         </div>
     </div>
-    
+
+    <div class="overlay-container hidden" id="overlay-customtext">
+        <div class="overlay">
+            <h1 class="title-font">Edit message</h1>
+            <p>You can save your message by bookmarking this page.</p>
+            <p>Note that emojis are not supported.</p>
+
+            <textarea class="text-entry" id="text-custom-entry"></textarea>
+            <p style="text-align:center"><a class="button button-close" targetid="overlay-customtext" id="btn-text-update">Update</a></p>
+        </div>
+    </div>
+
     <div class="overlay-container hidden" id="overlay-about">
         <div class="overlay">
             <h1 class="title-font">February</h1>
             Alex Koik-Cestone &bull; 2020
-            
+
             <p>Heart models based on <a target="_blank" href="https://en.wikipedia.org/wiki/Heart_symbol#/media/File:Heart_coraz%C3%B3n.svg">heart image</a> by user Fibonacci on Wikipedia.</p>
-            
+
             <p><a target="_blank" href="https://hdrihaven.com/hdri/?c=studio&h=studio_small_02">Environment lighting</a> by Greg Zaal, HDRI Haven.</p>
-            
+
             <p>Foglihten font &copy;2010-2011 <a target="_blank" href="http://www.glukfonts.pl">Gluk Fonts</a>.</p>
-            
+
             <p>Bright Beauty font &copy;2019 <a href="https://creativemarket.com/madeDeduk">Madededuk Design</a>.</p>
-            
+
             <p>Typeface.js 3D font conversion courtesy <a href="http://gero3.github.io/facetype.js/">Facetype.js</a></p>
-            
+
             <p style="text-align: center"><a class="button button-close" targetid="overlay-about" href="#">Close</a></p>
         </div>
     </div>
@@ -48,7 +59,7 @@
                 <div class="load-progress"></div>
             </div>
         </div>
-    </div>    
+    </div>
 </body>
 
 </html>

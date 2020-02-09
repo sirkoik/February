@@ -102,6 +102,8 @@ function addObject(id) {
         //objLocal.rotation.y = Math.atan(Math.cos(theta)) / 5;
         objLocal.rotation.y = Math.sin(theta) / 100;
         
+        //objLocal.rotation.z += inc;
+        
         // set position to a random new one after reaching max threshold.
         if (objLocal.position.y > maxThreshold) {
             objLocal.material.opacity -= inc;
