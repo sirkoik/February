@@ -1,4 +1,4 @@
-import {TEXT_OBJ_NAME} from './scene.js';
+import {TEXT_OBJ_NAME, showLoadingText} from './scene.js';
 import {addCustomText, revertBoxText} from './3dtext.js';
 export {domInit, showLoadingOverlay, hideLoadingOverlay, setProgress, setProgressText, finishLoading}
 
@@ -97,7 +97,7 @@ function setProgress(amount) {
 
 // setProgressText: change the progress text when an item loads
 function setProgressText(text) {
-    document.querySelector('.progress-text').innerText = text + '...';
+    if (showLoadingText) document.querySelector('.progress-text').innerText = text + '...';
 }
 
 function finishLoading() {

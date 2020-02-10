@@ -9,11 +9,15 @@ import {loadFont, addText} from './3dtext.js';
 import {getQueryVar} from './utility.js';
 import {setProgressText, finishLoading} from './dom.js';
 export {
+    showLoadingText,
     SCENE, THREE, scene, renderer, clock, clockDelta, increment, fontPath, fontText, setFontText,
     TEXT_OBJ_NAME
 };
 
 const SCENE = () => {};
+
+// parameters
+let showLoadingText = false;
 
 // object and path constants
 const TEXT_OBJ_NAME = 'vdayText';
@@ -67,6 +71,7 @@ const buildScene = async() => {
     } catch(e) {
         fontText = getQueryVar('text');
     }
+    
     fontText = fontText != 'undefined' && fontText !== null? fontText : DEFAULT_FONT_TEXT;
     
     document.getElementById('text-custom-entry').value = fontText;

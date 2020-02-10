@@ -73,6 +73,7 @@ async function addCustomText(objToRemove) {
     addText(objToRemove, objToRemove);
     
     let url = window.location.href.split('?')[0] + '?text=' + btoa(text) + '&base64=true';
+    url = url.replace('#', ''); // remove any pound signs from url
     history.pushState({'page_id': 1}, text, url);
     hideLoadingOverlay();
 }
