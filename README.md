@@ -2,7 +2,7 @@
 
 ## v0.4.3
 * Fixed bug which would result in pound sign being inserted into query string.
-* Removed custom loading text.
+* Omit mention of what is loaded in loading text.
 
 ## v0.4.2
 * Implemented progress bar with loading messages.
