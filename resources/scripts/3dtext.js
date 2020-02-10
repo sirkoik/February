@@ -1,11 +1,14 @@
-import {THREE, scene, fontPath, fontText} from './scene.js';
-export {loadFont, addText, addCustomText};
+import {THREE, scene, fontPath, fontText, setFontText} from './scene.js';
+import {setProgress, showLoadingOverlay, hideLoadingOverlay} from './dom.js';
+export {loadFont, addText, addCustomText, revertBoxText};
 
 let loader = new THREE.FontLoader();
 let textGeometry = {};
 
 // loadFont: loads a font with THREE.FontLoader. Promise form.
 function loadFont(path, text) {
+    let prevProg = 0;
+    
     return new Promise((resolve, reject) => {
         loader.load(path, (font) => {
             textGeometry = new THREE.TextGeometry(text, {
@@ -14,7 +17,13 @@ function loadFont(path, text) {
                 height: 0.1
             });
             
-            resolve('Font loaded.');
+            resolve('Font loaded');
+        }, progressEvent => {
+            
+                let prog = Math.round(progressEvent.lengthComputable ? 100 * progressEvent.loaded / progressEvent.total : 0);
+
+                setProgress(prog - prevProg);
+                prevProg = prog;
         });
     });
 }
@@ -56,12 +65,18 @@ async function addCustomText(objToRemove) {
     if (!text || text == '') return false;
     
     // BUG for some reason this won't set
-    //fontText = text;
+    setFontText(text);
     
+    showLoadingOverlay();
     await loadFont(fontPath, text);
     
     addText(objToRemove, objToRemove);
     
     let url = window.location.href.split('?')[0] + '?text=' + btoa(text) + '&base64=true';
     history.pushState({'page_id': 1}, text, url);
+    hideLoadingOverlay();
+}
+
+function revertBoxText() {
+    document.getElementById('text-custom-entry').value = fontText;
 }

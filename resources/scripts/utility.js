@@ -26,6 +26,7 @@ function addHelpers() {
 }
 
 // getQueryVar: get a variable from the query string.
+// @name name of query variable
 function getQueryVar(name) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(name);

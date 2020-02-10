@@ -1,5 +1,9 @@
 # February
 
+## v0.4.2
+* Implemented progress bar with loading messages.
+* Added cancel option to custom text dialog.
+
 ## v0.4.1
 * Multiline customizable text
 * Base64 encoding in the query string as an option to preserve formatting such as line breaks. Base64 is automatically used with the custom text entry interface.
@@ -36,7 +40,6 @@
 * Panning with damping
 
 # Todo
-* Implement progress bar
 * Make text scale with window size
  
 # Ideas

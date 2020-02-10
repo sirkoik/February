@@ -29,7 +29,10 @@
             <p>Note that emojis are not supported.</p>
 
             <textarea class="text-entry" id="text-custom-entry"></textarea>
-            <p style="text-align:center"><a class="button button-close" targetid="overlay-customtext" id="btn-text-update">Update</a></p>
+            <p style="text-align:center">
+                <a class="button button-close" targetid="overlay-customtext" id="btn-text-update">Update</a>
+                <a class="button button-close" targetid="overlay-customtext" id="btn-text-cancel">Cancel</a>
+            </p>
         </div>
     </div>
 
@@ -52,9 +55,9 @@
         </div>
     </div>
 
-    <div class="loading-overlay-container">
-        <div class="loading-overlay title-font">
-            Loading...
+    <div class="loading-overlay-container flex">
+        <div class="loading-overlay">
+            <span class="progress-text">Loading...</span>
             <div class="load-progress-container mt-5">
                 <div class="load-progress"></div>
             </div>

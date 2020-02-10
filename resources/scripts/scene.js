@@ -7,11 +7,11 @@ import {addPlane, addHelpers} from './utility.js';
 import {load, loadEnvMap} from './loader.js';
 import {loadFont, addText} from './3dtext.js';
 import {getQueryVar} from './utility.js';
+import {setProgressText, finishLoading} from './dom.js';
 export {
-    SCENE, THREE, scene, renderer, clock, clockDelta, increment, fontPath, fontText,
+    SCENE, THREE, scene, renderer, clock, clockDelta, increment, fontPath, fontText, setFontText,
     TEXT_OBJ_NAME
 };
-
 
 const SCENE = () => {};
 
@@ -24,7 +24,12 @@ const objPath = './resources/models/heart.glb';
 const envMapPath = './resources/textures/envmaps/studio_small_02_1k.hdr';
 
 // text
-let fontText = 'Happy\nValentine\'s\nDay!';
+const DEFAULT_FONT_TEXT = 'Happy\nValentine\'s\nDay!';
+let fontText = DEFAULT_FONT_TEXT;
+function setFontText(text) {
+    fontText = text;
+}
+
 
 // renderer
 const renderer = new THREE.WebGLRenderer({
@@ -62,19 +67,24 @@ const buildScene = async() => {
     } catch(e) {
         fontText = getQueryVar('text');
     }
+    fontText = fontText != 'undefined' && fontText !== null? fontText : DEFAULT_FONT_TEXT;
+    
     document.getElementById('text-custom-entry').value = fontText;
     
     const loaded = await Promise.all([
         (async() => {
-            await load(objPath);
+            setProgressText(await load(objPath));
         })(),
         (async() => {
-            await loadEnvMap(envMapPath);
+            setProgressText(await loadEnvMap(envMapPath));
         })(),
         (async() => {
-            await loadFont(fontPath, fontText);
+            setProgressText(await loadFont(fontPath, fontText));
         })()
     ]);
+    
+    // hide loading overlay after all Promises have been fulfulled.
+    finishLoading();
 
     //addPlane();
     //addHelpers();

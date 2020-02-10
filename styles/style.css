@@ -40,12 +40,14 @@ div.burger {
     /*            background: green;*/
     margin: 0px;
     margin-right: 2vh;
+    
+    opacity: 0.8;
 }
 
 div.burger-bar {
     background-color: #fff;
     width: 7vh;
-    height: 2vh;
+    height: 1.5vh;
     margin: 1vh;
 }
 
@@ -102,6 +104,7 @@ a.button {
     border: 1vh solid darkred;
     border-radius: 1vh;
     padding: 1vh;
+    margin: 0;
 }
 
 h1 {
@@ -121,8 +124,6 @@ h1 {
 /* CSS for loader */
 
 .loading-overlay-container {
-    display: none;
-
     position: fixed;
     z-index: 100;
 
@@ -130,7 +131,6 @@ h1 {
     right: 0;
     bottom: 0;
     left: 0;
-    /*    display: flex;*/
     justify-content: center;
     align-items: center;
 }

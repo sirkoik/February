@@ -1,6 +1,6 @@
 import {TEXT_OBJ_NAME} from './scene.js';
-import {addCustomText} from './3dtext.js';
-export {domInit}
+import {addCustomText, revertBoxText} from './3dtext.js';
+export {domInit, showLoadingOverlay, hideLoadingOverlay, setProgress, setProgressText, finishLoading}
 
 // domInit: Initialize DOM functions.
 function domInit() {
@@ -13,7 +13,12 @@ function domInit() {
     document.querySelector('#btn-text-update').addEventListener('click', function(e) {
         e.preventDefault();
         addCustomText(TEXT_OBJ_NAME);
-    }, false)
+    }, false);
+    
+    document.querySelector('#btn-text-cancel').addEventListener('click', function(e) {
+        e.preventDefault();
+        revertBoxText();
+    });
     
     document.querySelector('.menu-items-customtext').addEventListener('click', toggleOverlay, false);
     document.querySelector('.menu-items-about').addEventListener('click', toggleOverlay, false);
@@ -33,6 +38,69 @@ function toggleMenu(e) {
 // addEventListener automatically passes e (event) to this function.
 function toggleOverlay(e) {
     let el = document.getElementById(e.target.getAttribute('targetid'));
+    tO(el);
+}
+
+// toggleOverlayScript: Toggles an overlay based on directly supplied targetId.
+function toggleOverlayScript(targetId) {
+    let el = document.getElementById(targetId);
+    tO(el);
+}
+
+// tO: internal overlay toggle function
+function tO(el) {
     el.classList.toggle('hidden');
     el.classList.toggle('flex');    
+}
+
+
+// loader
+
+// toggle the loading overlay.
+function toggleLoadingOverlay() {
+    let el = document.querySelector('.loading-overlay-container');
+    tO(el);
+}
+
+// showLoadingOverlay: show the loading overlay.
+function showLoadingOverlay() {
+    let el = document.querySelector('.loading-overlay-container');
+    el.classList.remove('hidden');
+    el.classList.add('flex');
+}
+
+// hide instead of toggling the loading overlay.
+function hideLoadingOverlay() {
+    let el = document.querySelector('.loading-overlay-container');
+    el.classList.remove('flex');
+    el.classList.add('hidden');
+}
+
+// totalProg depends on how many items are loading with onProgress. 
+// since the onProgresses are set to go to 100, the totalProg should match onProgresses * 100.
+// i.e. with three progresses, totalProg should be 300. This is a simple case - if you think an 
+// item is less significant you can reduce its contribution to totalProg and reduce totalProg likewise.
+let prog = 0;
+let totalProg = 300; 
+
+// setProgress: set the progress in the progress bar to an adjusted amount based on totalProg
+function setProgress(amount) {
+    prog += amount;
+    
+    let total = Math.round(100 * prog / totalProg);
+    document.querySelector('.load-progress').style.width = total + '%';
+    
+    if (total >= 100) {
+        finishLoading();
+    }
+}
+
+// setProgressText: change the progress text when an item loads
+function setProgressText(text) {
+    document.querySelector('.progress-text').innerText = text + '...';
+}
+
+function finishLoading() {
+    setProgressText('Loading');
+    hideLoadingOverlay();    
 }

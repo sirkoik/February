@@ -129,7 +129,7 @@ function addObjects() {
         addObject(x);
     }
     
-    console.log(posArray);
+//    console.log(posArray);
 }
 
 function getNewPosition() {
