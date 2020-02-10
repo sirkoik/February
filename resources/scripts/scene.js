@@ -11,13 +11,21 @@ import {setProgressText, finishLoading} from './dom.js';
 export {
     showLoadingText,
     SCENE, THREE, scene, renderer, clock, clockDelta, increment, fontPath, fontText, setFontText,
-    TEXT_OBJ_NAME
+    TEXT_OBJ_NAME,
+    setCubeTexture, toggleBg
 };
 
 const SCENE = () => {};
 
 // parameters
 let showLoadingText = false;
+let cubeTexture = {};
+const solidBg = new THREE.Color(0xcc0000);
+let solidBgEnabled = true;
+
+function setCubeTexture(texture) {
+    cubeTexture = texture;
+}
 
 // object and path constants
 const TEXT_OBJ_NAME = 'vdayText';
@@ -28,7 +36,7 @@ const objPath = './resources/models/heart.glb';
 const envMapPath = './resources/textures/envmaps/studio_small_02_1k.hdr';
 
 // text
-const DEFAULT_FONT_TEXT = 'Happy\nValentine\'s\nDay!';
+const DEFAULT_FONT_TEXT = 'Happy Valentine\'s Day!';
 let fontText = DEFAULT_FONT_TEXT;
 function setFontText(text) {
     fontText = text;
@@ -105,6 +113,8 @@ const buildScene = async() => {
 
 buildScene();
 
+// clock
+
 let clock = new THREE.Clock();
 clock.start();
 let increment = 1;
@@ -164,7 +174,7 @@ function addPointLight(posX, posY, posZ, intensity) {
 
 // Add lights.
 function addLights() {
-    scene.background = new THREE.Color(0xcc0000);
+    scene.background = solidBg;
     
 //    addPointLight(0,0,0);
 //    addPointLight(10,10,10,0.5);
@@ -189,4 +199,10 @@ function addLights() {
 function addFog() {
     let fog = new THREE.Fog(0xcc0000, 1, 20);
     scene.fog = fog;
+}
+
+// toggleBg: Toggle background between solid color and cube map.
+function toggleBg() {
+    scene.background = solidBgEnabled? cubeTexture : solidBg;
+    solidBgEnabled = !solidBgEnabled;
 }

@@ -1,7 +1,8 @@
 import {
     THREE,
     renderer,
-    scene
+    scene,
+    setCubeTexture
 } from './scene.js';
 import {
     GLTFLoader
@@ -52,6 +53,7 @@ function loadEnvMap(url) {
 
                 // this is very important in order for objects to receive the lighting!
                 scene.environment = hdrCubeRenderTarget.texture;
+                setCubeTexture(hdrCubeRenderTarget.texture);
 
                 renderer.toneMappingExposure = 0.8;
                 resolve('Envmap loaded');

@@ -1,4 +1,4 @@
-import {TEXT_OBJ_NAME, showLoadingText} from './scene.js';
+import {TEXT_OBJ_NAME, showLoadingText, toggleBg} from './scene.js';
 import {addCustomText, revertBoxText} from './3dtext.js';
 export {domInit, showLoadingOverlay, hideLoadingOverlay, setProgress, setProgressText, finishLoading}
 
@@ -21,6 +21,7 @@ function domInit() {
     });
     
     document.querySelector('.menu-items-customtext').addEventListener('click', toggleOverlay, false);
+    document.querySelector('.menu-items-bg').addEventListener('click', toggleBg, false);
     document.querySelector('.menu-items-about').addEventListener('click', toggleOverlay, false);
     
     for (let el of document.querySelectorAll('.button-close')) {
