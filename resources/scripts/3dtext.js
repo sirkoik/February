@@ -63,18 +63,25 @@ async function addCustomText(objToRemove) {
 //    if (!text) return false;
     let text = document.getElementById('text-custom-entry').value;
     if (!text || text == '') return false;
+
+    try {
+        var b64 = btoa(text);
+    } catch(e) {
+        alert('Unfortunately, the text you entered has characters that are not compatible with the system. Try removing any emojis or apostrophes.');
+        return false;
+    }
     
-    // BUG for some reason this won't set
     setFontText(text);
     
     showLoadingOverlay();
     await loadFont(fontPath, text);
     
     addText(objToRemove, objToRemove);
-    
-    let url = window.location.href.split('?')[0] + '?text=' + btoa(text) + '&base64=true';
+    let url = window.location.href.split('?')[0] + '?text=' + b64 + '&base64=true';
     url = url.replace('#', ''); // remove any pound signs from url
     history.pushState({'page_id': 1}, text, url);
+
+
     hideLoadingOverlay();
 }
 
